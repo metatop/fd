@@ -1,0 +1,96 @@
+{include="header2"}
+
+<script type="text/javascript">
+   function delete_documento(id,name)
+   {
+      if( confirm("¿Realmente desea eliminar "+name+"?") )
+      {
+         window.location.href = "{$fsc->url()}&delete="+id;
+      }
+      
+      return false;
+   }
+</script>
+
+<div class="container-fluid" style="margin-top: 15px;">
+   <div class="row">
+      <div class="col-sm-8">
+         <div class="table-responsive">
+            <table class="table table-hover">
+               <thead>
+                  <tr>
+                     <th>Archivo</th>
+                     <th class="text-left">Descripción</th>
+                     <th class="text-right">Tamaño</th>
+                     <th class="text-right">Fecha</th>
+                     <th class="text-right hidden-sm">Hora</th>
+                     <th class="text-right">Usuario</th>
+                     <th></th>
+                  </tr>
+               </thead>
+               {loop="$fsc->documentos"}
+               <tr{if="!$value->file_exists()"} class="danger"{/if}>
+                  <td>
+                     {if="$value->file_exists()"}
+                     <span class="glyphicon glyphicon-file" aria-hidden="true"></span> &nbsp;
+                     {else}
+                     <span class="glyphicon glyphicon-remove" aria-hidden="true" title="No se encuentra el archivo"></span> &nbsp;
+                     {/if}
+                     {if="$fsc->esImagen($value->ruta)"}
+                     <a href="{$value->ruta}" target="_blank"><img src="{$value->ruta}" style="max-height: 100px; max-width: 100px"/></a>
+                     {else}
+                     <a href="{$value->ruta}" target="_blank">{$value->nombre}</a>
+                     {/if}
+                  </td>
+                  <td class="text-left">{$value->descripcion}</td>
+                  <td class="text-right">{$value->tamano()}</td>
+                  <td class="text-right">{$value->fecha}</td>
+                  <td class="text-right">{$value->hora}</td>
+                  <td class="text-right">{$value->usuario}</td>
+                  {if="$fsc->user->admin"}
+                  <td class="text-right">
+                     <a href="#" title="Eliminar el archivo" onclick="return delete_documento('{$value->id}','{$value->nombre}');">
+                        <span class="glyphicon glyphicon-trash"></span>
+                     </a>
+                  </td>
+                  {/if}
+               </tr>
+               {else}
+               <tr class="warning">
+                  <td colspan="6">Sin resultados.</td>
+               </tr>
+               {/loop}
+            </table>
+         </div>
+         <p class="help-block">
+          Aquí puedes subir fotos o cualquier documento o archivo.        
+         </p>
+      </div>
+      <div class="col-sm-4">
+         <form enctype="multipart/form-data" action="{$fsc->url()}" method="post" class="form">
+            <input type="hidden" name="upload" value="TRUE"/>
+            <div class="panel panel-default">
+               <div class="panel-heading">
+                  <h3 class="panel-title">Añadir un documento</h3>
+                  <p class="help-block">
+                  El tamaño del archivo no puede superar los 5Mb.
+                  </p>
+               </div>
+               <div class="panel-body">
+                  <div class="form-group">
+                     <input name="fdocumento" type="file"/>
+                  </div>
+                  <label>Descripción</label>
+                    <input type="text" name="descripcion" id="descripcion" class="form-control" placeholder="Introducir una descripción breve del archivo" required="required">
+                    </div> 
+                  <button class="btn btn-sm btn-primary" type="submit" onclick="this.form.submit();">
+                     <span class="glyphicon glyphicon-floppy-disk"></span> &nbsp; Guardar
+                  </button>
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+
+{include="footer2"}

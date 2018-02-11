@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : tabladocus.xml
+    Description:
+        Estructura de la tabla documentos
+-->
+<tabla>
+   <columna>
+      <nombre>id</nombre>
+      <tipo>serial</tipo>
+      <nulo>NO</nulo>
+      <defecto>nextval('documentosfac_id_seq'::regclass)</defecto>
+   </columna>
+   <columna>
+      <nombre>ruta</nombre>
+      <tipo>character varying(300)</tipo>
+      <nulo>NO</nulo>
+   </columna>
+   <columna>
+      <nombre>nombre</nombre>
+      <tipo>character varying(250)</tipo>
+      <nulo>NO</nulo>
+   </columna>
+   <columna>
+      <nombre>descripcion</nombre>
+      <tipo>character varying(250)</tipo>
+      <nulo>NO</nulo>
+   </columna>
+   <columna>
+      <nombre>fecha</nombre>
+      <tipo>date</tipo>
+   </columna>
+   <columna>
+      <nombre>hora</nombre>
+      <tipo>time without time zone</tipo>
+      <defecto>now()</defecto>
+   </columna>
+   <columna>
+      <nombre>tamano</nombre>
+      <tipo>integer</tipo>
+   </columna>
+   <columna>
+      <nombre>usuario</nombre>
+      <tipo>character varying(12)</tipo>
+   </columna>
+   <columna>
+      <nombre>idaparato</nombre>
+      <tipo>integer</tipo>
+   </columna>
+   <columna>
+      <nombre>idaveria</nombre>
+      <tipo>integer</tipo>
+   </columna>
+   <columna>
+      <nombre>chasis</nombre>
+      <tipo>varchar(30)</tipo>
+   </columna>
+   <columna>
+      <nombre>marca</nombre>
+      <tipo>varchar(30)</tipo>
+   </columna>
+   
+   <restriccion>
+      <nombre>documentosfortec_pkey</nombre>
+      <consulta>PRIMARY KEY (id)</consulta>
+   </restriccion>
+</tabla>
